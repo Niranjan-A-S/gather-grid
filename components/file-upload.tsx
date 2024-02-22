@@ -1,10 +1,10 @@
-"use client"
+'use client';
 
-import { UploadDropzone } from "@/lib/uploadthing";
+import { UploadDropzone } from '@/lib/uploadthing';
 import '@uploadthing/react/styles.css';
-import { X } from "lucide-react";
-import Image from "next/image";
-import { FC, memo, useMemo } from "react";
+import { X } from 'lucide-react';
+import Image from 'next/image';
+import { FC, memo, useMemo } from 'react';
 
 interface IFileUploadProps {
     onChange(url: string): void;
@@ -39,5 +39,5 @@ export const FileUpload: FC<IFileUploadProps> = memo(({ endpoint, onChange, valu
             endpoint={endpoint}
             onClientUploadComplete={(res) => onChange(res[0].url)}
             onUploadError={console.log}
-        />
-})
+        />;
+});

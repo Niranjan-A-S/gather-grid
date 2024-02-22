@@ -1,7 +1,7 @@
-import { getCurrentProfile } from '@/lib'
+import { getCurrentProfile } from '@/lib';
 import { db } from '@/lib/db';
 import { redirect } from 'next/navigation';
-import React from 'react'
+import React from 'react';
 import { NavigationAction } from './navigation-action';
 import { Separator } from '@/components/ui/separator';
 
@@ -28,5 +28,5 @@ export const NavigationSidebar = async () => {
                 className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto"
             />
         </div>
-    )
-}
+    );
+};

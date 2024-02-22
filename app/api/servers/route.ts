@@ -1,13 +1,13 @@
-import { getCurrentProfile } from "@/lib";
-import { db } from "@/lib/db";
-import { MemberRole } from "@prisma/client";
-import { NextResponse } from "next/server";
-import { v4 as uuidV4 } from "uuid";
+import { getCurrentProfile } from '@/lib';
+import { db } from '@/lib/db';
+import { MemberRole } from '@prisma/client';
+import { NextResponse } from 'next/server';
+import { v4 as uuidV4 } from 'uuid';
 
 export async function POST(req: Request) {
     try {
         const { name, imageUrl } = await req.json();
-        if (!imageUrl || !name) throw new NextResponse('Empty Payload', { status: 422 })
+        if (!imageUrl || !name) throw new NextResponse('Empty Payload', { status: 422 });
 
         const profile = await getCurrentProfile();
         if (!profile) throw new NextResponse('Unauthorized', { status: 401 });
@@ -37,8 +37,8 @@ export async function POST(req: Request) {
         return NextResponse.json(server);
     } catch (error) {
         //TODO: Remove this console.log  before production
-        console.log('[SERVERS_ POST]', error)
-        return new NextResponse('Internal Error', { status: 500 })
+        console.log('[SERVERS_ POST]', error);
+        return new NextResponse('Internal Error', { status: 500 });
     }
 
 }

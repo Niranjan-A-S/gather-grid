@@ -1,8 +1,7 @@
-import { NavigationSidebar } from '@/components/navigation/navigation-sidebar'
-import React, { FC, ReactNode } from 'react'
+import { NavigationSidebar } from '@/components/navigation/navigation-sidebar';
+import React, { FC, ReactNode } from 'react';
 
-const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
-    return (
+const MainLayout: FC<{ children: ReactNode }> = ({ children }) => (
         <div className="h-full">
             <div className="hidden md:flex h-full w-[72px] z-30 flex-col fixed inset-y-0">
                 <NavigationSidebar />
@@ -11,7 +10,6 @@ const MainLayout: FC<{ children: ReactNode }> = ({ children }) => {
                 {children}
             </main>
         </div>
-    )
-}
+    );
 
-export default MainLayout
+export default MainLayout;

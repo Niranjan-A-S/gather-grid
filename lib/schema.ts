@@ -1,4 +1,4 @@
-import * as z from "zod";
+import * as z from 'zod';
 
 export const formSchema = z.object({
     name: z.string().min(1, {
@@ -6,5 +6,5 @@ export const formSchema = z.object({
     }),
     imageUrl: z.string().min(1, {
         message: 'Server image is required.'
-    }),
+    })
 });

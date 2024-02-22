@@ -1,11 +1,10 @@
-"use client";
+'use client';
 
-import { FC, memo } from "react";
-import { ActionToolTip } from "@/components/action-tooltip";
-import { Plus } from "lucide-react";
+import { FC, memo } from 'react';
+import { ActionToolTip } from '@/components/action-tooltip';
+import { Plus } from 'lucide-react';
 
-export const NavigationAction: FC = memo(() => {
-    return (
+export const NavigationAction: FC = memo(() => (
         <div>
             <ActionToolTip
                 side="right"
@@ -24,5 +23,4 @@ export const NavigationAction: FC = memo(() => {
                 </button>
             </ActionToolTip>
         </div>
-    )
-})
+    ));

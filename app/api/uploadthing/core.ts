@@ -1,13 +1,14 @@
-import { auth } from "@clerk/nextjs";
-import { createUploadthing, type FileRouter } from "uploadthing/next";
+/* eslint-disable no-empty-function */
+import { auth } from '@clerk/nextjs';
+import { createUploadthing, type FileRouter } from 'uploadthing/next';
 
 const f = createUploadthing();
 
 const handleUserAuth = () => {
     const { userId } = auth();
     if (!userId) throw new Error('Unauthorized');
-    return { userId }
-}
+    return { userId };
+};
 
 export const ourFileRouter = {
     serverImage: f({
@@ -17,7 +18,7 @@ export const ourFileRouter = {
         .onUploadComplete(() => { }),
     messageFile: f(['image', 'pdf'])
         .middleware(handleUserAuth)
-        .onUploadComplete(() => { }),
+        .onUploadComplete(() => { })
 
 } satisfies FileRouter;
 

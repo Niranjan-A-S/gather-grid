@@ -1,5 +1,5 @@
-import { auth, currentUser, redirectToSignIn } from "@clerk/nextjs"
-import { db } from "./db";
+import { auth, currentUser, redirectToSignIn } from '@clerk/nextjs';
+import { db } from './db';
 
 export const getInitialProfile = async () => {
     const user = await currentUser();
@@ -18,12 +18,12 @@ export const getInitialProfile = async () => {
             userId,
             name: `${firstName} ${lastName}`,
             email,
-            imageUrl,
+            imageUrl
         }
     });
 
     return newProfile;
-}
+};
 
 export const getServer = async (profileId: string) => await db.server.findFirst({
     where: {
@@ -46,4 +46,4 @@ export const getCurrentProfile = async () => {
                 userId
             }
         });
-}
+};
