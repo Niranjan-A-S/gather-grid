@@ -7,12 +7,15 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { formSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 export const InitialModal: React.FC = React.memo(() => {
     const [isMounted, setIsMounted] = useState(false);
+    const { refresh } = useRouter();
 
     // This is done to remove hydration vulnerabilities
     useEffect(() => {
@@ -29,8 +32,15 @@ export const InitialModal: React.FC = React.memo(() => {
     const isLoading: boolean = useMemo(() => form.formState.isLoading, [form]);
 
     const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
-    }, []);
+        try {
+            const response = await axios.post('/api/servers', values);
+
+            form.reset();
+            refresh();
+        } catch (error) {
+            console.log(error)
+        }
+    }, [form, refresh]);
 
     const renderInputItem = useCallback(({ field }: any) => (
         <FormItem>

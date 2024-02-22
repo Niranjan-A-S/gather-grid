@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { InitialModal } from '@/components/modals/initial-modal';
-import { getInitialProfile, getServer } from '@/lib/setup';
+import { getInitialProfile, getServer } from '@/lib';
 
 const SetupPage = async () => {
 
