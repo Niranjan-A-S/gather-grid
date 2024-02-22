@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 "use client";
 import { FileUpload } from "@/components/file-upload";
 import { Button } from "@/components/ui/button";

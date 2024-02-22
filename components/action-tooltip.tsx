@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 "use client";
 import { FC, ReactNode, memo } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";

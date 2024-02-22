@@ -4,7 +4,6 @@ import { FC, memo } from "react";
 import { ActionToolTip } from "@/components/action-tooltip";
 import { Plus } from "lucide-react";
 
-// eslint-disable-next-line react/display-name
 export const NavigationAction: FC = memo(() => {
     return (
         <div>
