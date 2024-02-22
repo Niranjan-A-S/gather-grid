@@ -1,18 +1,20 @@
 /* eslint-disable react/display-name */
 "use client";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { FileUpload } from "@/components/file-upload";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { formSchema } from "@/lib/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 export const InitialModal: React.FC = React.memo(() => {
     const [isMounted, setIsMounted] = useState(false);
 
+    // This is done to remove hydration vulnerabilities
     useEffect(() => {
         setIsMounted(true)
     }, []);
@@ -24,13 +26,13 @@ export const InitialModal: React.FC = React.memo(() => {
             imageUrl: ''
         }
     });
-    const isLoading = useMemo(() => form.formState.isLoading, [form]);
+    const isLoading: boolean = useMemo(() => form.formState.isLoading, [form]);
 
     const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
         console.log(values);
     }, []);
 
-    const renderFormItem = useCallback(({ field }: any) => (
+    const renderInputItem = useCallback(({ field }: any) => (
         <FormItem>
             <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
                 Server name
@@ -46,6 +48,18 @@ export const InitialModal: React.FC = React.memo(() => {
             <FormMessage />
         </FormItem>
     ), [isLoading]);
+
+    const renderFileUploadItem = useCallback(({ field }: any) => (
+        <FormItem>
+            <FormControl>
+                <FileUpload
+                    endpoint="serverImage"
+                    onChange={field.onChange}
+                    value={field.value}
+                />
+            </FormControl>
+        </FormItem>
+    ), [])
 
     return !isMounted
         ? null
@@ -64,12 +78,16 @@ export const InitialModal: React.FC = React.memo(() => {
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                             <div className="space-y-8 px-6">
                                 <div className="flex items-center justify-center text-center">
-                                    TODO Image Upload
+                                    <FormField
+                                        control={form.control}
+                                        name="imageUrl"
+                                        render={renderFileUploadItem}
+                                    />
                                 </div>
                                 <FormField
                                     control={form.control}
                                     name="name"
-                                    render={renderFormItem}
+                                    render={renderInputItem}
                                 />
                             </div>
                             <DialogFooter className="bg-gray-100 px-6 py-4">
