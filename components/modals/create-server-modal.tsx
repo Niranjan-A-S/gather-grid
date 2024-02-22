@@ -16,7 +16,7 @@ import * as z from 'zod';
 export const CreateServerModal: React.FC = React.memo(() => {
 
     const { isOpen, onClose, type } = useModalStore();
-    const isModalOpen = useMemo(() => isOpen && type === 'createServer', [type, isOpen]);
+    const isModalOpen = useMemo(() => isOpen && type === 'CREATE_SERVER', [type, isOpen]);
 
     const { refresh } = useRouter();
 

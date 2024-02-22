@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type ModalType = 'createServer'
+type ModalType = 'CREATE_SERVER'
 
 interface IModalStore {
     isOpen: boolean;

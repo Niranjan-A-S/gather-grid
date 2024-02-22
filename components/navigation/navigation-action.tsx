@@ -9,7 +9,7 @@ export const NavigationAction: FC = memo(() => {
 
     const { onOpen } = useModalStore();
     const onClick = useCallback(() => {
-        onOpen('createServer');
+        onOpen('CREATE_SERVER');
     }, [onOpen]);
 
     return (
