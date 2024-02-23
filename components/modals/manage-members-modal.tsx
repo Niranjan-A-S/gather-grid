@@ -81,7 +81,7 @@ export const ManageMembersModal: FC = React.memo(() => {
                     <DialogDescription
                         className='text-center text-zinc-500'
                     >
-                        {server?.members.length} member{server?.members.length > 1 ? 's' : ''}
+                        {server?.members?.length} member{server?.members?.length > 1 ? 's' : ''}
                     </DialogDescription>
                 </DialogHeader>
                 <ScrollArea className="mt-8 max-h-[420px] pr-6">

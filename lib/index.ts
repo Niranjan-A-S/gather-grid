@@ -12,11 +12,12 @@ export const getInitialProfile = async () => {
     });
     if (profile) return profile;
 
-    const { firstName, lastName, emailAddresses: [{ emailAddress: email }], imageUrl, id: userId } = user;
+    const { firstName, lastName, username, emailAddresses: [{ emailAddress: email }], imageUrl, id: userId } = user;
+    const name = (firstName && lastName) ? `${firstName} ${lastName}` : username || email;
     const newProfile = await db.profile.create({
         data: {
             userId,
-            name: `${firstName} ${lastName}`,
+            name,
             email,
             imageUrl
         }
