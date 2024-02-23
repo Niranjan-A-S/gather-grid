@@ -1,14 +1,11 @@
 import { getCurrentProfile } from '@/lib';
 import { db } from '@/lib/db';
+import { IServerSidebarProps } from '@/types/component-props';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { ChannelType } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import { FC, memo } from 'react';
 import { ServerHeader } from './server-header';
-
-interface IServerSidebarProps {
-    serverId: string;
-}
 
 export const ServerSidebar: FC<IServerSidebarProps> = memo(async ({ serverId }) => {
 

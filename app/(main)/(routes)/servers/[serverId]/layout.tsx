@@ -1,15 +1,9 @@
 import { ServerSidebar } from '@/components/server/server-sidebar';
 import { getCurrentProfile } from '@/lib';
 import { db } from '@/lib/db';
+import { IServerIdLayoutProps } from '@/types/component-props';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
-import { ReactNode } from 'react';
-
-interface IServerIdLayoutProps {
-    children: ReactNode;
-    params: { serverId: string }
-}
-
 
 const ServerIdLayout = async ({ children, params }: IServerIdLayoutProps) => {
 

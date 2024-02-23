@@ -1,14 +1,11 @@
 'use client';
 
-import { FC, memo, useCallback } from 'react';
-import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
-import { Server } from '@prisma/client';
 import { ActionToolTip } from '@/components/action-tooltip';
 import { cn } from '@/lib/utils';
-
-interface INavigationItemProps extends Pick<Server, 'id' | 'name' | 'imageUrl'> {
-}
+import { INavigationItemProps } from '@/types/component-props';
+import Image from 'next/image';
+import { useParams, useRouter } from 'next/navigation';
+import { FC, memo, useCallback } from 'react';
 
 export const NavigationItem: FC<INavigationItemProps> = memo(({ id, imageUrl, name }) => {
 

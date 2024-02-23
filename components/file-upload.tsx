@@ -1,16 +1,11 @@
 'use client';
 
 import { UploadDropzone } from '@/lib/uploadthing';
+import { IFileUploadProps } from '@/types/component-props';
 import '@uploadthing/react/styles.css';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import { FC, memo, useMemo } from 'react';
-
-interface IFileUploadProps {
-    onChange(url: string): void;
-    value: string;
-    endpoint: 'serverImage' | 'messageFile'
-}
 
 export const FileUpload: FC<IFileUploadProps> = memo(({ endpoint, onChange, value }) => {
     const fileType: any = useMemo(() => value.split('.').pop, [value]);
