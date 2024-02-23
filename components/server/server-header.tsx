@@ -3,14 +3,14 @@
 import { ServerWithMembersAndProfiles } from '@/types';
 import { MemberRole } from '@prisma/client';
 import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserPlus, Users } from 'lucide-react';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
 import { IServerHeaderProps } from '@/types/component-props';
 
 export const ServerHeader: FC<IServerHeaderProps> = ({ server, role }) => {
 
-    const isAdmin = role === MemberRole.ADMIN;
-    const isModerator = isAdmin || role === MemberRole.MODERATOR;
+    const isAdmin = useMemo(() => role === MemberRole.ADMIN, [role]);
+    const isModerator = useMemo(() => isAdmin || role === MemberRole.MODERATOR, [isAdmin, role]);
 
     return (
         <DropdownMenu>
