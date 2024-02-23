@@ -62,6 +62,7 @@ export const ServerHeader: FC<IServerHeaderProps> = ({ server, role }) => {
                         ? (
                             <DropdownMenuItem
                                 className="px-3 py-2 text-sm cursor-pointer"
+                                onClick={() => onOpen('MANAGE_MEMBERS', { server })}
                             >
                                 Manage Members
                                 <Users className="h-4 w-4 ml-auto" />

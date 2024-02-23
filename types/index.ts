@@ -4,7 +4,7 @@ export type ServerWithMembersAndProfiles = Server & {
     members: (Member & { profile: Profile })[];
 }
 
-export type ModalType = 'CREATE_SERVER' | 'INVITE_PEOPLE' | 'EDIT_SERVER';
+export type ModalType = 'CREATE_SERVER' | 'INVITE_PEOPLE' | 'EDIT_SERVER' | 'MANAGE_MEMBERS';
 export interface IModalData {
     server?: Server;
 }
