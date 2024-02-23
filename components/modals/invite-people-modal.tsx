@@ -24,12 +24,13 @@ export const InvitePeopleModal: React.FC = React.memo(() => {
     const onGenerateCode = useCallback(async () => {
         try {
             setIsLoading(true);
-            const response = await axios.patch(`api/servers/${server?.id}/invite-code`);
 
+            const response = await axios.patch(`/api/servers/${server?.id}/invite-code`);
             onOpen('INVITE_PEOPLE', { server: response.data });
         } catch (error) {
-            setIsLoading(false);
             console.log(error);
+        } finally {
+            setIsLoading(false);
         }
     }, [onOpen, server?.id]);
 
@@ -52,6 +53,7 @@ export const InvitePeopleModal: React.FC = React.memo(() => {
                             className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
                             value={inviteCode}
                             disabled={isLoading}
+                            readOnly
                         />
                         <Button size="icon" onClick={onCopy} disabled={isLoading}>
                             {isCopied
