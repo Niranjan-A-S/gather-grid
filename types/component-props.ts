@@ -33,3 +33,8 @@ export interface IFileUploadProps {
     endpoint: 'serverImage' | 'messageFile'
 }
 
+export interface IInviteCodePageProps {
+    params: {
+        inviteCode: string;
+    };
+}
