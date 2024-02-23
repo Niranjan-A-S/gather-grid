@@ -38,3 +38,14 @@ export interface IInviteCodePageProps {
         inviteCode: string;
     };
 }
+
+export interface IUserAvatarProps {
+    src?: string;
+    className?: string;
+}
+
+export interface IMemberItemProps {
+    name: string;
+    imageUrl: string;
+    onRemove(): void;
+}
