@@ -7,7 +7,9 @@ export const useOrigin = () => {
         setIsMounted(true);
     }, []);
 
+    const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : '';
+
     return isMounted
-        ? (typeof window !== 'undefined' && window.location.origin || '')
-        : false;
+        ? origin
+        : '';
 };
