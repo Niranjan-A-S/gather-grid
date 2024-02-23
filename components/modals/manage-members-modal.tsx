@@ -1,30 +1,75 @@
 'use client';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useModalStore } from '@/hooks/use-modal-store';
-import { Members, ServerWithMembersAndProfiles } from '@/types';
-import React, { FC, useCallback, useMemo } from 'react';
+import { ServerWithMembersAndProfiles, _Member } from '@/types';
+import { MemberRole } from '@prisma/client';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import qs from 'query-string';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { ScrollArea } from '../ui/scroll-area';
 import { MemberItem } from '../user/member-item';
 
 export const ManageMembersModal: FC = React.memo(() => {
 
+    const [loadingId, setLoadingId] = useState('');
+    const router = useRouter();
+
     const { isOpen, onClose, type, data, onOpen } = useModalStore();
     const isModalOpen = useMemo(() => isOpen && type === 'MANAGE_MEMBERS', [type, isOpen]);
-    //NOTE: This is an escape hatch
+
     const { server } = data as { server: ServerWithMembersAndProfiles };
 
-    const onRemove = useCallback(() => {
-        //todo: remove member
-    }, []);
+    const onKick = useCallback(async (memberId: string) => {
+        try {
+            setLoadingId(memberId);
+            const url = qs.stringifyUrl({
+                url: `/api/members/${memberId}`,
+                query: {
+                    serverId: server?.id
+                }
+            });
+            const response = await axios.delete(url);
 
-    const renderServerMember = useCallback(({ id, profile: { imageUrl, name } }: Members) => (
+            router.refresh();
+            onOpen('MANAGE_MEMBERS', { server: response.data });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoadingId('');
+        }
+    }, [onOpen, router, server?.id]);
+
+    const onRoleChange = useCallback(async (memberId: string, role: MemberRole) => {
+        try {
+            setLoadingId(memberId);
+            const url = qs.stringifyUrl({
+                url: `/api/members/${memberId}`,
+                query: {
+                    serverId: server?.id
+                }
+            });
+            const response = await axios.patch(url, { role });
+
+            router.refresh();
+            onOpen('MANAGE_MEMBERS', { server: response.data });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoadingId('');
+        }
+    }, [onOpen, router, server?.id]);
+
+    const renderServerMember = useCallback((member: _Member) => (
         <MemberItem
-            key={id}
-            name={name}
-            onRemove={onRemove}
-            imageUrl={imageUrl}
+            key={member.id}
+            data={member}
+            onRoleChange={onRoleChange}
+            onKick={onKick}
+            serverProfileId={server?.profileId}
+            loadingId={loadingId}
         />
-    ), [onRemove]);
+    ), [loadingId, onKick, onRoleChange, server?.profileId]);
 
     return (
         <Dialog open={isModalOpen} onOpenChange={onClose}>
