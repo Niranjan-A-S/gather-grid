@@ -33,7 +33,7 @@ export const EditServerModal: React.FC = React.memo(() => {
             form.setValue('name', server.name);
             form.setValue('imageUrl', server.imageUrl);
         }
-    }, [form, server]);
+    }, [form, server, isOpen]);
 
     const isLoading: boolean = useMemo(() => form.formState.isLoading, [form]);
 
