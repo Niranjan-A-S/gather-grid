@@ -1,9 +1,9 @@
 import { Member, Profile, Server } from '@prisma/client';
 
-export type Members = (Member & { profile: Profile })
+export type _Member = (Member & { profile: Profile })
 
 export type ServerWithMembersAndProfiles = Server & {
-    members: Members[];
+    members: _Member[];
 }
 
 export type ModalType = 'CREATE_SERVER' | 'INVITE_PEOPLE' | 'EDIT_SERVER' | 'MANAGE_MEMBERS';

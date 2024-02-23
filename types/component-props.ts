@@ -1,6 +1,6 @@
 import { MemberRole, Server } from '@prisma/client';
 import { ReactNode } from 'react';
-import { ServerWithMembersAndProfiles } from '.';
+import { ServerWithMembersAndProfiles, _Member } from '.';
 
 export interface IServerIdLayoutProps {
     children: ReactNode;
@@ -45,7 +45,9 @@ export interface IUserAvatarProps {
 }
 
 export interface IMemberItemProps {
-    name: string;
-    imageUrl: string;
-    onRemove(): void;
+    data: _Member;
+    onRoleChange(memberId: string, role: MemberRole): void;
+    onKick(memberId: string): void;
+    serverProfileId: string;
+    loadingId: string;
 }
