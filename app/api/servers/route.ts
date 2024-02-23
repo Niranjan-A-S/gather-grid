@@ -6,11 +6,11 @@ import { v4 as uuidV4 } from 'uuid';
 
 export async function POST(req: Request) {
     try {
-        const { name, imageUrl } = await req.json();
-        if (!imageUrl || !name) throw new NextResponse('Empty Payload', { status: 422 });
-
         const profile = await getCurrentProfile();
-        if (!profile) throw new NextResponse('Unauthorized', { status: 401 });
+        if (!profile) return new NextResponse('Unauthorized', { status: 401 });
+
+        const { name, imageUrl } = await req.json();
+        if (!imageUrl || !name) return new NextResponse('Empty Payload', { status: 422 });
 
         const inviteCode = uuidV4();
         const profileId = profile.id;
