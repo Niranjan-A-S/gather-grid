@@ -2,6 +2,7 @@
 
 import { FC, memo, useEffect, useState } from 'react';
 import { CreateServerModal } from '@/components/modals/create-server-modal';
+import { InvitePeopleModal } from '@/components/modals/invite-people-modal';
 
 export const ModalProvider: FC = memo(() => {
     const [isMounted, setIsMounted] = useState(false);
@@ -15,6 +16,7 @@ export const ModalProvider: FC = memo(() => {
         ? (
             <>
                 <CreateServerModal />
+                <InvitePeopleModal />
             </>
         )
         : null;

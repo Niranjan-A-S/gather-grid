@@ -3,7 +3,8 @@ import { create } from 'zustand';
 
 export const useModalStore = create<IModalStore>((set) => ({
     isOpen: false,
-    onOpen: (type) => set({ type, isOpen: true }),
+    onOpen: (type, data = {}) => set({ type, isOpen: true, data }),
     onClose: () => set({ isOpen: false, type: null }),
-    type: null
+    type: null,
+    data: {}
 }));
