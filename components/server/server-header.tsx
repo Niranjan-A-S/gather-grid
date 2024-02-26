@@ -105,6 +105,7 @@ export const ServerHeader: FC<IServerHeaderProps> = ({ server, role }) => {
                         ? (
                             <DropdownMenuItem
                                 className="text-rose-500 px-3 py-2 text-sm cursor-pointer"
+                                onClick={() => onOpen('LEAVE_SERVER', { server })}
                             >
                                 Leave Server
                                 <LogOut className="h-4 w-4 ml-auto" />
