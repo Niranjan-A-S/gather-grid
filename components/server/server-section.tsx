@@ -11,7 +11,6 @@ export const ServerSection: FC<IServerSectionProps> = memo(({
     label,
     role,
     sectionType,
-    channelType,
     server
 }) => {
     const { onOpen } = useModalStore();
@@ -49,7 +48,7 @@ export const ServerSection: FC<IServerSectionProps> = memo(({
                         >
                             <button
                                 className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
-                                onClick={() => onOpen('CREATE_CHANNEL', { server })}
+                                onClick={() => onOpen('INVITE_PEOPLE', { server })}
                             >
                                 <Settings className="h-4 w-4" />
                             </button>
