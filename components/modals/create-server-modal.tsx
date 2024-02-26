@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useModalStore } from '@/hooks/use-modal-store';
-import { formSchema } from '@/lib/schema';
+import { createServerFormSchema } from '@/lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -21,7 +21,7 @@ export const CreateServerModal: React.FC = React.memo(() => {
     const { refresh } = useRouter();
 
     const form = useForm({
-        resolver: zodResolver(formSchema),
+        resolver: zodResolver(createServerFormSchema),
         defaultValues: {
             name: '',
             imageUrl: ''
@@ -29,7 +29,7 @@ export const CreateServerModal: React.FC = React.memo(() => {
     });
     const isLoading: boolean = useMemo(() => form.formState.isLoading, [form]);
 
-    const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
+    const onSubmit = useCallback(async (values: z.infer<typeof createServerFormSchema>) => {
         try {
             await axios.post('/api/servers', values);
             form.reset();
