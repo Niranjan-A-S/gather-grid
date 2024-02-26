@@ -1,7 +1,10 @@
 'use client';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useModalStore } from '@/hooks/use-modal-store';
-import React, { useMemo, useState } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Button } from '../ui/button';
 
 export const LeaveSeverModal: React.FC = React.memo(() => {
 
@@ -9,6 +12,20 @@ export const LeaveSeverModal: React.FC = React.memo(() => {
     const isModalOpen = useMemo(() => isOpen && type === 'LEAVE_SERVER', [type, isOpen]);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const router = useRouter();
+
+    const onConfirmLeave = useCallback(async () => {
+        try {
+            setIsLoading(false);
+            await axios.patch(`/api/servers/${server?.id}/leave`);
+            onClose();
+            router.refresh();
+            router.push('/');
+        } catch (error) {
+        } finally {
+            setIsLoading(false);
+        }
+    }, [onClose, router, server?.id]);
 
     return (
         <Dialog open={isModalOpen} onOpenChange={onClose}>
@@ -17,10 +34,28 @@ export const LeaveSeverModal: React.FC = React.memo(() => {
                     <DialogTitle className="text-2xl text-center font-bold">
                         Leave Server
                     </DialogTitle>
+                    <DialogDescription className="text-center text-zinc-500">
+                        Are you sure you want to leave <span className="font-semibold text-indigo-500">{server?.name}</span>?
+                    </DialogDescription>
                 </DialogHeader>
-                <div className="p-6">
-                    Leave Server
-                </div>
+                <DialogFooter className="bg-gray-100 px-6 py-4">
+                    <div className="flex items-center justify-end w-full gap-4">
+                        <Button
+                            disabled={isLoading}
+                            onClick={onClose}
+                            variant="ghost"
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            disabled={isLoading}
+                            variant="primary"
+                            onClick={onConfirmLeave}
+                        >
+                            Confirm
+                        </Button>
+                    </div>
+                </DialogFooter>
             </DialogContent>
         </Dialog >
     );
