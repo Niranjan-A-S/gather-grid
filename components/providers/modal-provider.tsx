@@ -2,6 +2,7 @@
 
 import { CreateChannelModal } from '@/components/modals/create-channel-modal';
 import { CreateServerModal } from '@/components/modals/create-server-modal';
+import { DeleteSeverModal } from '@/components/modals/delete-server-modal';
 import { EditServerModal } from '@/components/modals/edit-server-modal';
 import { InvitePeopleModal } from '@/components/modals/invite-people-modal';
 import { LeaveSeverModal } from '@/components/modals/leave-server-modal';
@@ -25,6 +26,7 @@ export const ModalProvider: FC = memo(() => {
                 <ManageMembersModal />
                 <CreateChannelModal />
                 <LeaveSeverModal />
+                <DeleteSeverModal />
             </>
         )
         : null;
