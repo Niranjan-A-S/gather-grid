@@ -49,7 +49,7 @@ export const LeaveSeverModal: React.FC = React.memo(() => {
                         </Button>
                         <Button
                             disabled={isLoading}
-                            variant="primary"
+                            variant="destructive"
                             onClick={onConfirmLeave}
                         >
                             Confirm
