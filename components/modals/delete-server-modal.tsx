@@ -19,7 +19,8 @@ export const DeleteSeverModal: React.FC = React.memo(() => {
             setIsLoading(false);
             await axios.delete(`/api/servers/${server?.id}`);
             onClose();
-            router.refresh();
+            //todo check this later
+            window.location.reload();
             router.push('/');
         } catch (error) {
         } finally {
