@@ -1,4 +1,4 @@
-import { MemberRole, Server } from '@prisma/client';
+import { Channel, ChannelType, MemberRole, Server } from '@prisma/client';
 import { ReactNode } from 'react';
 import { ServerWithMembersAndProfiles, _Member } from '.';
 
@@ -22,8 +22,8 @@ export interface IServerSidebarProps {
 export interface IActionToolTipProps {
     children: ReactNode;
     label: string;
-    align: 'start' | 'center' | 'end';
-    side: 'top' | 'right' | 'bottom' | 'left';
+    align?: 'start' | 'center' | 'end';
+    side?: 'top' | 'right' | 'bottom' | 'left';
 }
 
 export interface IFileUploadProps {
@@ -64,4 +64,16 @@ interface IServerSearch {
 export interface IServerSearchProps {
     data: IServerSearch[]
 }
+export interface IServerSectionProps {
+    label: string;
+    role?: MemberRole;
+    sectionType: 'channels' | 'members';
+    channelType?: ChannelType;
+    server?: ServerWithMembersAndProfiles;
+}
 
+export interface IServerChannelProps {
+    channel: Channel;
+    server: Server;
+    role?: MemberRole;
+}
