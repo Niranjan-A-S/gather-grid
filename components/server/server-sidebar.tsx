@@ -7,8 +7,11 @@ import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import { FC, memo } from 'react';
 import { ScrollArea } from '../ui/scroll-area';
+import { Separator } from '../ui/separator';
+import { ServerChannel } from './server-channel';
 import { ServerHeader } from './server-header';
 import { ServerSearch } from './server-search';
+import { ServerSection } from './server-section';
 
 //todo move these mappers to some other files
 const iconMap = {
@@ -108,6 +111,27 @@ export const ServerSidebar: FC<IServerSidebarProps> = memo(async ({ serverId }) 
                         ]}
                     />
                 </div>
+                <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
+                {!!textChannels?.length && (
+                    <div className="mb-2">
+                        <ServerSection
+                            label="Text Channels"
+                            sectionType="channels"
+                            channelType={ChannelType.TEXT}
+                            role={role}
+                            server={server}
+                        />
+                        {textChannels?.map((channel) =>
+                            <ServerChannel
+                                key={channel.id}
+                                server={server}
+                                role={role}
+                                channel={channel}
+                            />
+                            , [])
+                        }
+                    </div>
+                )}
             </ScrollArea>
         </div>
     );
