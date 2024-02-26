@@ -6,11 +6,14 @@ import { Input } from '@/components/ui/input';
 import { useModalStore } from '@/hooks/use-modal-store';
 import { createChannelFormSchema } from '@/lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ChannelType } from '@prisma/client';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import qs from 'query-string';
 import React, { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
 export const CreateChannelModal: React.FC = React.memo(() => {
 
@@ -18,25 +21,66 @@ export const CreateChannelModal: React.FC = React.memo(() => {
     const isModalOpen = useMemo(() => isOpen && type === 'CREATE_CHANNEL', [type, isOpen]);
 
     const { refresh } = useRouter();
+    const params = useParams();
 
     const form = useForm({
         resolver: zodResolver(createChannelFormSchema),
         defaultValues: {
-            name: ''
+            name: '',
+            type: ChannelType.TEXT
         }
     });
     const isLoading: boolean = useMemo(() => form.formState.isLoading, [form]);
 
     const onSubmit = useCallback(async (values: z.infer<typeof createChannelFormSchema>) => {
         try {
-            await axios.post('/api/servers', values);
+            const url = qs.stringifyUrl({
+                url: '/api/channels',
+                query: {
+                    serverId: params?.serverId
+                }
+            });
+            await axios.post(url, values);
             form.reset();
             refresh();
             onClose();
         } catch (error) {
             console.log(error);
         }
-    }, [form, onClose, refresh]);
+    }, [form, onClose, params?.serverId, refresh]);
+
+    const renderSelectItem = useCallback(({ field }: any) => (
+        <FormItem>
+            <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                Channel Type
+            </FormLabel>
+            <Select
+                disabled={isLoading}
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+            >
+                <FormControl>
+                    <SelectTrigger
+                        className="bg-zinc-300/50 border-0 focus:ring-0 text-black ring-offset-0 focus:ring-offset-0 capitalize outline-none"
+                    >
+                        <SelectValue placeholder="Select a channel type" />
+                    </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                    {Object.values(ChannelType).map((type) => (
+                        <SelectItem
+                            key={type}
+                            value={type}
+                            className="capitalize"
+                        >
+                            {type.toLowerCase()}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
+            <FormMessage />
+        </FormItem>
+    ), [isLoading]);
 
     const renderInputItem = useCallback(({ field }: any) => (
         <FormItem>
@@ -75,6 +119,11 @@ export const CreateChannelModal: React.FC = React.memo(() => {
                                 control={form.control}
                                 name="name"
                                 render={renderInputItem}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="type"
+                                render={renderSelectItem}
                             />
                         </div>
                         <DialogFooter className="bg-gray-100 px-6 py-4">
