@@ -10,7 +10,6 @@ export interface IServerIdLayoutProps {
 export interface INavigationItemProps extends Pick<Server, 'id' | 'name' | 'imageUrl'> {
 }
 
-
 export interface IServerHeaderProps {
     server: ServerWithMembersAndProfiles;
     role?: MemberRole;
@@ -51,3 +50,18 @@ export interface IMemberItemProps {
     serverProfileId: string;
     loadingId: string;
 }
+
+interface IServerSearch {
+    label: string;
+    type: 'channel' | 'member',
+    data: {
+        icon: React.ReactNode;
+        name: string;
+        id: string;
+    }[] | undefined
+}
+
+export interface IServerSearchProps {
+    data: IServerSearch[]
+}
+
