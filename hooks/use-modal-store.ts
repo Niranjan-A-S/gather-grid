@@ -8,3 +8,5 @@ export const useModalStore = create<IModalStore>((set) => ({
     type: null,
     data: {}
 }));
+
+
