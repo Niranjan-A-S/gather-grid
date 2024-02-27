@@ -94,3 +94,10 @@ export interface IChatHeaderProps {
 
 export interface IMobileToggleProps extends Pick<IChatHeaderProps, 'serverId'> {
 }
+
+export interface IChatInputProps {
+    apiUrl: string;
+    query: Record<string, any>;
+    type: 'channel' | 'conversation';
+    name: string;
+}
