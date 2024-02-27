@@ -12,6 +12,7 @@ import { ServerChannel } from './server-channel';
 import { ServerHeader } from './server-header';
 import { ServerSearch } from './server-search';
 import { ServerSection } from './server-section';
+import { ServerMember } from './server-member';
 
 //todo move these mappers to some other files
 const iconMap = {
@@ -120,6 +121,7 @@ export const ServerSidebar: FC<IServerSidebarProps> = memo(async ({ serverId }) 
                             channelType={ChannelType.TEXT}
                             role={role}
                         />
+                        <div className="space-y-[2px]">
                         {textChannels?.map((channel) =>
                             <ServerChannel
                                 key={channel.id}
@@ -129,6 +131,7 @@ export const ServerSidebar: FC<IServerSidebarProps> = memo(async ({ serverId }) 
                             />
                             , [])
                         }
+                        </div>
                     </div>
                 )}
                 {!!audioChannels?.length && (
@@ -139,6 +142,7 @@ export const ServerSidebar: FC<IServerSidebarProps> = memo(async ({ serverId }) 
                             channelType={ChannelType.AUDIO}
                             role={role}
                         />
+                        <div className="space-y-[2px]">
                         {audioChannels?.map((channel) =>
                             <ServerChannel
                                 key={channel.id}
@@ -148,6 +152,7 @@ export const ServerSidebar: FC<IServerSidebarProps> = memo(async ({ serverId }) 
                             />
                             , [])
                         }
+                        </div>
                     </div>
                 )}
                 {!!videoChannels?.length && (
@@ -158,6 +163,7 @@ export const ServerSidebar: FC<IServerSidebarProps> = memo(async ({ serverId }) 
                             channelType={ChannelType.VIDEO}
                             role={role}
                         />
+                        <div className="space-y-[2px]">
                         {videoChannels?.map((channel) =>
                             <ServerChannel
                                 key={channel.id}
@@ -167,6 +173,7 @@ export const ServerSidebar: FC<IServerSidebarProps> = memo(async ({ serverId }) 
                             />
                             , [])
                         }
+                        </div>
                     </div>
                 )}
                 {!!members?.length && (
@@ -177,6 +184,15 @@ export const ServerSidebar: FC<IServerSidebarProps> = memo(async ({ serverId }) 
                             role={role}
                             server={server}
                         />
+                        <div className="space-y-[2px]">
+                            {members.map(member => (
+                                <ServerMember
+                                    key={member.id}
+                                    server={server}
+                                    member={member}
+                                />
+                            ))}
+                        </div>
                     </div>
                 )}
             </ScrollArea>
