@@ -1,13 +1,14 @@
 'use client';
 
+import { useModalStore } from '@/hooks/use-modal-store';
 import { cn } from '@/lib/utils';
+import { ModalType } from '@/types';
 import { IServerChannelProps } from '@/types/component-props';
 import { ChannelType, MemberRole } from '@prisma/client';
 import { Edit, Hash, Lock, Mic, Trash, Video } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
-import { FC, memo, useMemo } from 'react';
+import { FC, memo, useCallback, useMemo } from 'react';
 import { ActionToolTip } from '../action-tooltip';
-import { useModalStore } from '@/hooks/use-modal-store';
 
 
 const iconMap = {
@@ -25,12 +26,22 @@ export const ServerChannel: FC<IServerChannelProps> = memo(({ channel, server, r
 
     const Icon = useMemo(() => iconMap[channel.type], [channel.type]);
 
+    const onClick = useCallback(() => {
+        router.push(`/servers/${server?.id}/channels/${channel.id}`);
+    }, [channel.id, router, server?.id]);
+
+    const onAction = useCallback((event: any, type: ModalType) => {
+        event.stopPropagation();
+        onOpen(type, { channel, server });
+    }, [channel, onOpen, server]);
+
     return (
         <button
             className={cn(
                 'group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1',
                 params?.channelId === channel.id && 'bg-zinc-700/20 dark:bg-zinc-700'
             )}
+            onClick={onClick}
         >
             <Icon className="flex-shrink-0 w-5 h-5 text-zinc-500 dark:text-zinc-400" />
             <p className={cn(
@@ -45,7 +56,7 @@ export const ServerChannel: FC<IServerChannelProps> = memo(({ channel, server, r
                         label="Edit"
                     >
                         <Edit
-                            onClick={() => onOpen('EDIT_CHANNEL', { server, channel })}
+                            onClick={(event) => onAction(event, 'EDIT_CHANNEL')}
                             className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
                         />
                     </ActionToolTip>
@@ -53,7 +64,7 @@ export const ServerChannel: FC<IServerChannelProps> = memo(({ channel, server, r
                         label="Delete"
                     >
                         <Trash
-                            onClick={() => onOpen('DELETE_CHANNEL', { server, channel })}
+                            onClick={(event) => onAction(event, 'DELETE_CHANNEL')}
                             className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
                         />
                     </ActionToolTip>
