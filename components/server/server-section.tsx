@@ -42,13 +42,13 @@ export const ServerSection: FC<IServerSectionProps> = memo(({
                 role === MemberRole.ADMIN && sectionType === 'members'
                     ? (
                         <ActionToolTip
-                            label="Invite Members"
+                            label="Manage Members"
                             side="right"
                             align="center"
                         >
                             <button
                                 className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
-                                onClick={() => onOpen('INVITE_PEOPLE', { server })}
+                                onClick={() => onOpen('MANAGE_MEMBERS', { server })}
                             >
                                 <Settings className="h-4 w-4" />
                             </button>
