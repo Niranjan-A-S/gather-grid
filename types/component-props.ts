@@ -91,3 +91,6 @@ export interface IChatHeaderProps {
     type: 'channel' | 'conversation';
     imageUrl?: string;
 }
+
+export interface IMobileToggleProps extends Pick<IChatHeaderProps, 'serverId'> {
+}
