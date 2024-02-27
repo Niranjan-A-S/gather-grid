@@ -3,6 +3,7 @@ import { Hash } from 'lucide-react';
 import { FC, memo } from 'react';
 import { MobileToggle } from '../mobile-toggle';
 import { UserAvatar } from '../user/user-avatar';
+import { SocketIndicator } from '../socket-indicator';
 
 export const ChatHeader: FC<IChatHeaderProps> = memo(({ type, name, serverId, imageUrl }) => (
     <div
@@ -23,5 +24,8 @@ export const ChatHeader: FC<IChatHeaderProps> = memo(({ type, name, serverId, im
         <p className="font-semibold text-md text-black dark:text-white">
             {name}
         </p>
+        <div className="ml-auto flex items-center" >
+            <SocketIndicator />
+        </div>
     </div>
 ));
