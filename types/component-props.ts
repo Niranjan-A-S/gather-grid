@@ -1,4 +1,4 @@
-import { Channel, ChannelType, MemberRole, Server } from '@prisma/client';
+import { Channel, ChannelType, Member, MemberRole, Profile, Server } from '@prisma/client';
 import { ReactNode } from 'react';
 import { ServerWithMembersAndProfiles, _Member } from '.';
 
@@ -76,4 +76,11 @@ export interface IServerChannelProps {
     channel: Channel;
     server: Server;
     role?: MemberRole;
+}
+
+export interface IServerMemberProps {
+    server: Server;
+    member: Member & {
+        profile: Profile;
+    };
 }
