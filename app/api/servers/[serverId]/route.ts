@@ -50,7 +50,7 @@ export async function DELETE(req: Request, { params: { serverId } }: { params: {
 
     } catch (error) {
         //TODO: Remove this console.log  before production
-        console.log('[SERVERS_ POST]', error);
+        console.log('[SERVER_ID_ DELETE]', error);
         return new NextResponse('Internal Error', { status: 500 });
     }
 }
