@@ -1,4 +1,15 @@
 import { Channel, ChannelType, Member, Profile, Server } from '@prisma/client';
+import { Server as NetServer, Socket } from 'net';
+import { NextApiResponse } from 'next';
+import { Server as SocketIOServer } from 'socket.io';
+
+export type NextApiResponseServerIO = NextApiResponse & {
+    socket: Socket & {
+        server: NetServer & {
+            io: SocketIOServer
+        }
+    }
+};
 
 export type _Member = (Member & { profile: Profile })
 
@@ -29,4 +40,9 @@ export interface IModalStore {
     onClose(): void;
     type: ModalType | null;
     onOpen(type: ModalType, data?: IModalData): void;
+}
+
+export interface ISocketContext {
+    socket: any | null;
+    isConnected: boolean;
 }
