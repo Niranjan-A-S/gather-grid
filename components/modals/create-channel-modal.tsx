@@ -10,14 +10,14 @@ import { ChannelType } from '@prisma/client';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import qs from 'query-string';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
 export const CreateChannelModal: React.FC = React.memo(() => {
 
-    const { isOpen, onClose, type } = useModalStore();
+    const { isOpen, onClose, type, data: { channelType } } = useModalStore();
     const isModalOpen = useMemo(() => isOpen && type === 'CREATE_CHANNEL', [type, isOpen]);
 
     const { refresh } = useRouter();
@@ -27,9 +27,14 @@ export const CreateChannelModal: React.FC = React.memo(() => {
         resolver: zodResolver(createChannelFormSchema),
         defaultValues: {
             name: '',
-            type: ChannelType.TEXT
+            type: channelType || ChannelType.TEXT
         }
     });
+
+    useEffect(() => {
+        form.setValue('type', channelType || ChannelType.TEXT);
+    }, [channelType, form]);
+
     const isLoading: boolean = useMemo(() => form.formState.isLoading, [form]);
 
     const onSubmit = useCallback(async (values: z.infer<typeof createChannelFormSchema>) => {

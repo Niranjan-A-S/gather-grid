@@ -11,7 +11,8 @@ export const ServerSection: FC<IServerSectionProps> = memo(({
     label,
     role,
     sectionType,
-    server
+    server,
+    channelType
 }) => {
     const { onOpen } = useModalStore();
 
@@ -30,7 +31,7 @@ export const ServerSection: FC<IServerSectionProps> = memo(({
                         >
                             <button
                                 className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
-                                onClick={() => onOpen('CREATE_CHANNEL')}
+                                onClick={() => onOpen('CREATE_CHANNEL', { channelType })}
                             >
                                 <Plus className="h-4 w-4" />
                             </button>

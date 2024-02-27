@@ -1,4 +1,4 @@
-import { Member, Profile, Server } from '@prisma/client';
+import { Channel, ChannelType, Member, Profile, Server } from '@prisma/client';
 
 export type _Member = (Member & { profile: Profile })
 
@@ -17,6 +17,7 @@ export type ModalType =
     ;
 export interface IModalData {
     server?: Server;
+    channelType?: ChannelType;
 }
 
 export interface IModalStore {
