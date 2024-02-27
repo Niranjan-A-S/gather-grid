@@ -30,11 +30,11 @@ export const ChatInput: FC<IChatInputProps> = (({ apiUrl, name, query, type }) =
                 query
             });
             await axios.post(url, values);
-
+            form.reset();
         } catch (error) {
             console.log(error);
         }
-    }, [apiUrl, query]);
+    }, [apiUrl, form, query]);
 
     return (
         <Form {...form}>
