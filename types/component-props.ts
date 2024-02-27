@@ -84,3 +84,10 @@ export interface IServerMemberProps {
         profile: Profile;
     };
 }
+
+export interface IChatHeaderProps {
+    name: string;
+    serverId: string;
+    type: 'channel' | 'conversation';
+    imageUrl?: string;
+}

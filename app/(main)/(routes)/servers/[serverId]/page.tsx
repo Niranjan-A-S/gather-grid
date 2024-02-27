@@ -3,7 +3,7 @@ import { db } from '@/lib/db';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
-const ServerIdPage = async ({ params: { serverId } }: { params: { serverId: string } }) => {
+const ServerIdPage = async ({ params: { serverId } }: IServerIdPageProps) => {
 
     const profile = await getCurrentProfile();
     if (!profile) return redirectToSignIn();
