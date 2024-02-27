@@ -1,7 +1,5 @@
-'use client';
-
 import { IChatHeaderProps } from '@/types/component-props';
-import { Hash, Menu } from 'lucide-react';
+import { Hash } from 'lucide-react';
 import { FC, memo } from 'react';
 import { MobileToggle } from '../mobile-toggle';
 
