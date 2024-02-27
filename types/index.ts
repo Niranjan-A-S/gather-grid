@@ -13,10 +13,12 @@ export type ModalType =
     'MANAGE_MEMBERS' |
     'CREATE_CHANNEL' |
     'LEAVE_SERVER' |
-    'DELETE_SERVER'
+    'DELETE_SERVER' |
+    'DELETE_CHANNEL'
     ;
 export interface IModalData {
     server?: Server;
+    channel?: Channel;
     channelType?: ChannelType;
 }
 

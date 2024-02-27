@@ -7,6 +7,7 @@ import { Edit, Hash, Lock, Mic, Trash, Video } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { FC, memo, useMemo } from 'react';
 import { ActionToolTip } from '../action-tooltip';
+import { useModalStore } from '@/hooks/use-modal-store';
 
 
 const iconMap = {
@@ -16,6 +17,9 @@ const iconMap = {
 };
 
 export const ServerChannel: FC<IServerChannelProps> = memo(({ channel, server, role }) => {
+
+    const { onOpen } = useModalStore();
+
     const router = useRouter();
     const params = useParams();
 
@@ -48,6 +52,7 @@ export const ServerChannel: FC<IServerChannelProps> = memo(({ channel, server, r
                         label="Delete"
                     >
                         <Trash
+                            onClick={() => onOpen('DELETE_CHANNEL', { server, channel })}
                             className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
                         />
                     </ActionToolTip>

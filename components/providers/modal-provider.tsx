@@ -8,6 +8,7 @@ import { InvitePeopleModal } from '@/components/modals/invite-people-modal';
 import { LeaveSeverModal } from '@/components/modals/leave-server-modal';
 import { ManageMembersModal } from '@/components/modals/manage-members-modal';
 import { FC, memo, useEffect, useState } from 'react';
+import { DeleteChannelModal } from '../modals/delete-channel-modal';
 
 export const ModalProvider: FC = memo(() => {
     const [isMounted, setIsMounted] = useState(false);
@@ -27,6 +28,7 @@ export const ModalProvider: FC = memo(() => {
                 <CreateChannelModal />
                 <LeaveSeverModal />
                 <DeleteSeverModal />
+                <DeleteChannelModal />
             </>
         )
         : null;
