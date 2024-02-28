@@ -5,11 +5,12 @@ import { chatInputFormSchema } from '@/lib/schema';
 import { IChatInputProps } from '@/types/component-props';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { Plus, Smile } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import qs from 'query-string';
 import { FC, useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { EmojiPicker } from '../emoji-picker';
 import { Form, FormControl, FormField, FormItem } from '../ui/form';
 import { Input } from '../ui/input';
 
@@ -63,7 +64,9 @@ export const ChatInput: FC<IChatInputProps> = (({ apiUrl, name, query, type }) =
                                         {...field}
                                     />
                                     <div className="absolute top-7 right-8">
-                                        <Smile />
+                                        <EmojiPicker
+                                            onChange={(emoji: string) => field.onChange(`${field.value}${emoji}`)}
+                                        />
                                     </div>
                                 </div>
                             </FormControl>
