@@ -24,3 +24,9 @@ export const createChannelFormSchema = z.object({
 export const chatInputFormSchema = z.object({
     content: z.string().min(1)
 });
+
+export const messageFileFormSchema = z.object({
+    fileUrl: z.string().min(1, {
+        message: 'Attachment is required.'
+    })
+});
