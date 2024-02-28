@@ -1,6 +1,7 @@
 import { Channel, ChannelType, Member, MemberRole, Profile, Server } from '@prisma/client';
 import { ReactNode } from 'react';
 import { ServerWithMembersAndProfiles, _Member } from '.';
+import { StringValidation } from 'zod';
 
 export interface IServerIdLayoutProps {
     children: ReactNode;
@@ -92,8 +93,7 @@ export interface IChatHeaderProps {
     imageUrl?: string;
 }
 
-export interface IMobileToggleProps extends Pick<IChatHeaderProps, 'serverId'> {
-}
+export interface IMobileToggleProps extends Pick<IChatHeaderProps, 'serverId'> { }
 
 export interface IChatInputProps {
     apiUrl: string;
@@ -105,3 +105,16 @@ export interface IChatInputProps {
 export interface IEmojiPickerProps {
     onChange(value: string): void;
 }
+export interface IChatMessagesProps {
+    name: string;
+    member: Member;
+    chatId: string;
+    apiUrl: string;
+    socketUrl: string;
+    socketQuery: Record<string, string>;
+    paramKey: 'channelId' | 'conversationId';
+    paramValue: string;
+    type: 'channel' | 'conversation'
+}
+
+export interface IChatWelcomeProps extends Pick<IChatMessagesProps, 'type' | 'name'> { };
