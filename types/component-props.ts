@@ -101,3 +101,7 @@ export interface IChatInputProps {
     type: 'channel' | 'conversation';
     name: string;
 }
+
+export interface IEmojiPickerProps {
+    onChange(value: string): void;
+}
