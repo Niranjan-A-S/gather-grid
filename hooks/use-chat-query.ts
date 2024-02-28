@@ -3,6 +3,7 @@ import { IChatQueryOptions } from '@/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import qs from 'query-string';
 
+//todo understand this properly
 export const useChatQuery = ({ apiUrl, paramKey, paramValue, queryKey }: IChatQueryOptions) => {
     const { isConnected } = useSocket();
 
