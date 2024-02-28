@@ -1,5 +1,6 @@
 'use client';
 
+import { useModalStore } from '@/hooks/use-modal-store';
 import { chatInputFormSchema } from '@/lib/schema';
 import { IChatInputProps } from '@/types/component-props';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,7 +12,6 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem } from '../ui/form';
 import { Input } from '../ui/input';
-import { useModalStore } from '@/hooks/use-modal-store';
 
 export const ChatInput: FC<IChatInputProps> = (({ apiUrl, name, query, type }) => {
 
