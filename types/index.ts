@@ -1,4 +1,4 @@
-import { Channel, ChannelType, Member, Profile, Server } from '@prisma/client';
+import { Channel, ChannelType, Member, Message, Profile, Server } from '@prisma/client';
 import { Server as NetServer, Socket } from 'net';
 import { NextApiResponse } from 'next';
 import { Server as SocketIOServer } from 'socket.io';
@@ -54,3 +54,9 @@ export interface ISocketContext {
 export interface IChatQueryOptions extends Pick<IChatMessagesProps, 'apiUrl' | 'paramKey' | 'paramValue'> {
     queryKey: string;
 };
+
+export type MessageWithMemberWithProfile = Message & {
+    member: Member & {
+        profile: Profile
+    }
+}

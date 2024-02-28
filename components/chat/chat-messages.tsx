@@ -1,17 +1,12 @@
 'use client';
 
 import { useChatQuery } from '@/hooks/use-chat-query';
+import { MessageWithMemberWithProfile } from '@/types';
 import { IChatMessagesProps } from '@/types/component-props';
-import { Member, Message, Profile } from '@prisma/client';
 import { Loader2, ServerCrash } from 'lucide-react';
 import { FC, Fragment, useMemo } from 'react';
 import { ChatWelcome } from './chat-welcome';
 
-type MessageWithMemberWithProfile = Message & {
-    member: Member & {
-        profile: Profile
-    }
-}
 
 export const ChatMessages: FC<IChatMessagesProps> = (({
     apiUrl,
