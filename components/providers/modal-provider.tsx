@@ -9,6 +9,7 @@ import { EditServerModal } from '@/components/modals/edit-server-modal';
 import { InvitePeopleModal } from '@/components/modals/invite-people-modal';
 import { LeaveSeverModal } from '@/components/modals/leave-server-modal';
 import { ManageMembersModal } from '@/components/modals/manage-members-modal';
+import { MessageFileModal } from '@/components/modals/message-file-modal';
 import { FC, memo, useEffect, useState } from 'react';
 
 export const ModalProvider: FC = memo(() => {
@@ -31,6 +32,7 @@ export const ModalProvider: FC = memo(() => {
                 <DeleteSeverModal />
                 <DeleteChannelModal />
                 <EditChannelModal />
+                <MessageFileModal />
             </>
         )
         : null;

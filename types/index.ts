@@ -26,12 +26,15 @@ export type ModalType =
     'LEAVE_SERVER' |
     'DELETE_SERVER' |
     'DELETE_CHANNEL' |
-    'EDIT_CHANNEL'
+    'EDIT_CHANNEL' |
+    'MESSAGE_FILE'
     ;
 export interface IModalData {
     server?: Server;
     channel?: Channel;
     channelType?: ChannelType;
+    apiUrl?: string;
+    query?: Record<string, any>
 }
 
 export interface IModalStore {

@@ -11,8 +11,11 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem } from '../ui/form';
 import { Input } from '../ui/input';
+import { useModalStore } from '@/hooks/use-modal-store';
 
 export const ChatInput: FC<IChatInputProps> = (({ apiUrl, name, query, type }) => {
+
+    const { onOpen } = useModalStore();
 
     const form = useForm<z.infer<typeof chatInputFormSchema>>({
         defaultValues: {
@@ -47,6 +50,7 @@ export const ChatInput: FC<IChatInputProps> = (({ apiUrl, name, query, type }) =
                             <FormControl>
                                 <div className="relative p-4 pb-6">
                                     <button
+                                        onClick={() => onOpen('MESSAGE_FILE', { apiUrl, query })}
                                         type="button"
                                         className="absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
                                     >
