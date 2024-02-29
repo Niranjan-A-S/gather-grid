@@ -1,21 +1,22 @@
 'use client';
 
-import axios from 'axios';
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import qs from 'query-string';
-import { cn } from '@/lib/utils';
-import { IChatItemProps } from '@/types';
-import { MemberRole } from '@prisma/client';
-import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from 'lucide-react';
-import Image from 'next/image';
-import { FC, memo, useMemo, useState } from 'react';
 import { ActionToolTip } from '@/components/action-tooltip';
-import { UserAvatar } from '@/components/user/user-avatar';
 import {
     Form, FormControl, FormField, FormItem
 } from '@/components/ui/form';
+import { UserAvatar } from '@/components/user/user-avatar';
+import { editMessageInputFormSchema } from '@/lib/schema';
+import { cn } from '@/lib/utils';
+import { IChatItemProps } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { MemberRole } from '@prisma/client';
+import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from 'lucide-react';
+import Image from 'next/image';
+import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 
 const roleIconMap = {
     'GUEST': null,
@@ -39,7 +40,25 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
     const isPDF = useMemo(() => fileType === 'pdf' && fileUrl, [fileType, fileUrl]);
     const isImage = useMemo(() => !isPDF && fileUrl, [fileUrl, isPDF]);
 
-    console.log(fileUrl);
+    const form = useForm<z.infer<typeof editMessageInputFormSchema>>({
+        resolver: zodResolver(editMessageInputFormSchema),
+        defaultValues: {
+            content
+        }
+    });
+
+    const isLoading = useMemo(() => form.formState.isLoading, [form.formState.isLoading]);
+
+    //todo understand this
+    useEffect(() => {
+        form.reset({
+            content
+        });
+    }, [content, form]);
+
+    const handleSubmit = useCallback(async (values: z.infer<typeof editMessageInputFormSchema>) => {
+        console.log(values);
+    }, []);
 
     return (
         <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
@@ -108,6 +127,41 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
                                 }
                             </p>
                         )}
+                    {
+                        !fileUrl && isEditing && (
+                            <Form {...form}>
+                                <form
+                                    className="flex items-center w-full gap-x-2 pt-2"
+                                    onSubmit={form.handleSubmit(handleSubmit)}
+                                >
+                                    <FormField
+                                        control={form.control}
+                                        name="content"
+                                        render={({ field }) => (
+                                            <FormItem className="flex-1">
+                                                <FormControl>
+                                                    <div className="relative w-full">
+                                                        <Input
+                                                            disabled={isLoading}
+                                                            className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
+                                                            placeholder="Edited message"
+                                                            {...field}
+                                                        />
+                                                    </div>
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <Button disabled={isLoading} size="sm" variant="primary">
+                                        Save
+                                    </Button>
+                                </form>
+                                <span className="text-[10px] mt-1 text-zinc-400">
+                                    Press escape to cancel, enter to save
+                                </span>
+                            </Form>
+                        )
+                    }
                 </div>
             </div>
             {
