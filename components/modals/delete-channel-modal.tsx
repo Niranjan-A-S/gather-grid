@@ -17,7 +17,7 @@ export const DeleteChannelModal: React.FC = React.memo(() => {
 
     const onConfirmDelete = useCallback(async () => {
         try {
-            setIsLoading(false);
+            setIsLoading(true);
             const url = qs.stringifyUrl({
                 url: `/api/channels/${channel?.id}`,
                 query: {
