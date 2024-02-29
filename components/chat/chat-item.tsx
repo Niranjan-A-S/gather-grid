@@ -1,12 +1,13 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import { IChatItemProps } from '@/types';
-import { FC, memo, useMemo } from 'react';
-import { UserAvatar } from '../user/user-avatar';
-import { ShieldCheck, ShieldAlert, FileIcon } from 'lucide-react';
-import { ActionToolTip } from '../action-tooltip';
 import { MemberRole } from '@prisma/client';
+import { FileIcon, ShieldAlert, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
+import { FC, memo, useMemo, useState } from 'react';
+import { ActionToolTip } from '../action-tooltip';
+import { UserAvatar } from '../user/user-avatar';
 
 const roleIconMap = {
     'GUEST': null,
@@ -15,6 +16,8 @@ const roleIconMap = {
 };
 
 export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, deleted, fileUrl, id, isUpdated, member, socketQuery, socketUrl, timestamp }) => {
+
+    const [isEditing, setIsEditing] = useState(false);
 
     const isAdmin = useMemo(() => currentMember.role === MemberRole.ADMIN, [currentMember.role]);
     const isModerator = useMemo(() => currentMember.role === MemberRole.MODERATOR, [currentMember.role]);
@@ -65,8 +68,7 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
                                     className="object-cover"
                                 />
                             </a>
-                        )
-                    }
+                        )}
                     {
                         isPDF && (
                             // todo: make this a component
@@ -81,8 +83,23 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
                                     PDF file
                                 </a>
                             </div>
-                        )
-                    }
+                        )}
+                    {
+                        !fileUrl && !isEditing && (
+                            <p className={cn(
+                                'text-sm text-zinc-600 dark:text-zinc-300',
+                                deleted && 'italic text-zinc-500 dark:text-zinc-400 text-xs mt-1'
+                            )}>
+                                {content}
+                                {
+                                    isUpdated && !deleted && (
+                                        <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
+                                            (edited)
+                                        </span>
+                                    )
+                                }
+                            </p>
+                        )}
                 </div>
             </div>
         </div >
