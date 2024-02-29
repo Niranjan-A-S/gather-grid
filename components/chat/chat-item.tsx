@@ -19,6 +19,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
+import { useModalStore } from '@/hooks/use-modal-store';
 
 const roleIconMap = {
     'GUEST': null,
@@ -27,6 +28,8 @@ const roleIconMap = {
 };
 
 export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, deleted, fileUrl, id, isUpdated, member, socketQuery, socketUrl, timestamp }) => {
+
+    const { onOpen } = useModalStore();
 
     const [isEditing, setIsEditing] = useState(false);
 
@@ -203,6 +206,10 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
                             )}
                         <ActionToolTip label="Delete">
                             <Trash
+                                onClick={() => onOpen('DELETE_MESSAGE', {
+                                    apiUrl: `/${socketUrl}/${id}`,
+                                    query: socketQuery
+                                })}
                                 className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
                             />
                         </ActionToolTip>
