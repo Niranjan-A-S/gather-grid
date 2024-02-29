@@ -27,11 +27,6 @@ export default async function (req: NextApiRequest, res: NextApiResponseServerIO
             message: 'Message ID missing'
         });
 
-        const { content } = req.body;
-        if (!content) return res.status(422).json({
-            message: 'Message Content is missing'
-        });
-
         const server = await db.server.findFirst({
             where: {
                 id: serverId as string,
@@ -120,6 +115,11 @@ export default async function (req: NextApiRequest, res: NextApiResponseServerIO
         }
 
         if (req.method === 'PATCH') {
+            const { content } = req.body;
+            if (!content) return res.status(422).json({
+                message: 'Message Content is missing'
+            });
+
             if (!isMessageOwner) {
                 return res.status(401).json({
                     error: 'Unauthorized'
