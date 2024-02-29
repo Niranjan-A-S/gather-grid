@@ -3,10 +3,13 @@
 import { useChatQuery } from '@/hooks/use-chat-query';
 import { MessageWithMemberWithProfile } from '@/types';
 import { IChatMessagesProps } from '@/types/component-props';
+import { format } from 'date-fns';
 import { Loader2, ServerCrash } from 'lucide-react';
 import { FC, Fragment, useMemo } from 'react';
+import { ChatItem } from './chat-item';
 import { ChatWelcome } from './chat-welcome';
 
+const DATE_FORMAT = 'd MMM yyyy, HH:mm';
 
 export const ChatMessages: FC<IChatMessagesProps> = (({
     apiUrl,
@@ -69,8 +72,20 @@ export const ChatMessages: FC<IChatMessagesProps> = (({
             <div className="flex flex-col-reverse mt-auto">
                 {data?.pages?.map((group, i) => (
                     <Fragment key={i}>
-                        {group.items.map((message: MessageWithMemberWithProfile) => (
-                            <div key={message.id}>{message.content}</div>
+                        {group.items.map(({ content, createdAt, updatedAt, id, deleted, fileUrl, member: messageMember }: MessageWithMemberWithProfile) => (
+                            <ChatItem
+                                key={id}
+                                id={id}
+                                content={content}
+                                member={messageMember}
+                                currentMember={member}
+                                timestamp={format(new Date(createdAt), DATE_FORMAT)}
+                                fileUrl={null}
+                                isUpdated={createdAt !== updatedAt}
+                                deleted={false}
+                                socketUrl={socketUrl}
+                                socketQuery={socketQuery}
+                            />
                         ))}
                     </Fragment>
                 ))}
