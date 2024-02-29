@@ -28,6 +28,17 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
 
     const [isEditing, setIsEditing] = useState(false);
 
+    useEffect(() => {
+        const handleKeydown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape' || event.keyCode === 27) {
+                setIsEditing(false);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeydown);
+        return () => window.removeEventListener('keydown', handleKeydown);
+    }, []);
+
     const isAdmin = useMemo(() => currentMember.role === MemberRole.ADMIN, [currentMember.role]);
     const isModerator = useMemo(() => currentMember.role === MemberRole.MODERATOR, [currentMember.role]);
     const isOwner = useMemo(() => currentMember.id === member.id, [currentMember.id, member.id]);
