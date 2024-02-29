@@ -80,9 +80,9 @@ export const ChatMessages: FC<IChatMessagesProps> = (({
                                 member={messageMember}
                                 currentMember={member}
                                 timestamp={format(new Date(createdAt), DATE_FORMAT)}
-                                fileUrl={null}
+                                fileUrl={fileUrl}
                                 isUpdated={createdAt !== updatedAt}
-                                deleted={false}
+                                deleted={deleted}
                                 socketUrl={socketUrl}
                                 socketQuery={socketQuery}
                             />
