@@ -3,7 +3,7 @@
 import { cn } from '@/lib/utils';
 import { IChatItemProps } from '@/types';
 import { MemberRole } from '@prisma/client';
-import { FileIcon, ShieldAlert, ShieldCheck } from 'lucide-react';
+import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from 'lucide-react';
 import Image from 'next/image';
 import { FC, memo, useMemo, useState } from 'react';
 import { ActionToolTip } from '../action-tooltip';
@@ -102,6 +102,28 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
                         )}
                 </div>
             </div>
+            {
+                canDeleteMessage && (
+                    <div
+                        className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm"
+                    >
+                        {
+                            canEditMessage && (
+                                <ActionToolTip label="Edit">
+                                    <Edit
+                                        onClick={() => setIsEditing(true)}
+                                        className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+                                    />
+                                </ActionToolTip>
+                            )}
+                        <ActionToolTip label="Delete">
+                            <Trash
+                                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+                            />
+                        </ActionToolTip>
+                    </div>
+                )
+            }
         </div >
     );
 });
