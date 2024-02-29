@@ -79,7 +79,7 @@ export default async function (req: NextApiRequest, res: NextApiResponseServerIO
         const channelKey = `chat:${channel.id}:messages`;
         res?.socket?.server?.io?.emit(channelKey, message);
 
-        return res.status(200).json({ message });
+        return res.status(200).json(message);
 
     } catch (error) {
         console.log('[MESSAGES_POST]', error);
