@@ -15,6 +15,19 @@ const roleIconMap = {
 
 export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, deleted, fileUrl, id, isUpdated, member, socketQuery, socketUrl, timestamp }) => {
 
+    const isAdmin = useMemo(() => currentMember.role === MemberRole.ADMIN, [currentMember.role]);
+    const isModerator = useMemo(() => currentMember.role === MemberRole.MODERATOR, [currentMember.role]);
+    const isOwner = useMemo(() => currentMember.id === member.id, [currentMember.id, member.id]);
+
+    const canDeleteMessage = useMemo(() => !deleted && (isAdmin || isModerator || isOwner), [deleted, isAdmin, isModerator, isOwner]);
+    const canEditMessage = useMemo(() => !deleted && isOwner && !fileUrl, [deleted, fileUrl, isOwner]);
+
+    const fileType = useMemo(() => fileUrl?.split('.').pop(), [fileUrl]);
+
+    const isPDF = useMemo(() => fileType === 'pdf' && fileUrl, [fileType, fileUrl]);
+    const isImage = useMemo(() => !isPDF && fileUrl, [fileUrl, isPDF]);
+
+
     return (
         <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
             <div className="group flex gap-x-2 items-start w-full">
