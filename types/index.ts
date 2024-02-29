@@ -60,3 +60,18 @@ export type MessageWithMemberWithProfile = Message & {
         profile: Profile
     }
 }
+
+export interface IChatItemProps {
+    id: string;
+    content: string;
+    member: Member & {
+        profile: Profile;
+    };
+    currentMember: Member;
+    timestamp: string;
+    fileUrl: Message['fileUrl'];
+    isUpdated: boolean;
+    deleted: boolean;
+    socketUrl: string;
+    socketQuery: Record<string, string>;
+}
