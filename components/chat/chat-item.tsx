@@ -10,8 +10,10 @@ import { cn } from '@/lib/utils';
 import { IChatItemProps } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { MemberRole } from '@prisma/client';
+import axios from 'axios';
 import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from 'lucide-react';
 import Image from 'next/image';
+import queryString from 'query-string';
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -68,8 +70,18 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
     }, [content, form]);
 
     const handleSubmit = useCallback(async (values: z.infer<typeof editMessageInputFormSchema>) => {
-        console.log(values);
-    }, []);
+        try {
+            const url = queryString.stringifyUrl({
+                url: `${socketUrl}/${id}`,
+                query: {
+                    ...socketQuery
+                }
+            });
+            await axios.patch(url, values);
+        } catch (error) {
+            console.log(error);
+        }
+    }, [id, socketQuery, socketUrl]);
 
     return (
         <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
