@@ -73,15 +73,15 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
         try {
             const url = queryString.stringifyUrl({
                 url: `/${socketUrl}/${id}`,
-                query: {
-                    ...socketQuery
-                }
+                query: socketQuery
             });
             await axios.patch(url, values);
+            form.reset();
+            setIsEditing(false);
         } catch (error) {
             console.log(error);
         }
-    }, [id, socketQuery, socketUrl]);
+    }, [form, id, socketQuery, socketUrl]);
 
     return (
         <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
