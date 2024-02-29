@@ -72,7 +72,7 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
     const handleSubmit = useCallback(async (values: z.infer<typeof editMessageInputFormSchema>) => {
         try {
             const url = queryString.stringifyUrl({
-                url: `${socketUrl}/${id}`,
+                url: `/${socketUrl}/${id}`,
                 query: {
                     ...socketQuery
                 }
