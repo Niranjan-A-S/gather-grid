@@ -70,7 +70,7 @@ export const ChatMessages: FC<IChatMessagesProps> = (({
             <div className="flex flex-col-reverse mt-auto">
                 {data?.pages?.map((group, i) => (
                     <Fragment key={i}>
-                        {group.items.map(({ content, createdAt, updatedAt, id, deleted, fileUrl, member: messageMember }: MessageWithMemberWithProfile) => (
+                        {group?.items?.map(({ content, createdAt, updatedAt, id, deleted, fileUrl, member: messageMember }: MessageWithMemberWithProfile) => (
                             <ChatItem
                                 key={id}
                                 id={id}
