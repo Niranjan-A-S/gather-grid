@@ -1,11 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useHydrationHelper } from './use-hydration-helper';
 
 export const useOrigin = () => {
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+    const { isMounted } = useHydrationHelper();
 
     const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : '';
 

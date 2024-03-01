@@ -4,22 +4,18 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useHydrationHelper } from '@/hooks/use-hydration-helper';
 import { createServerFormSchema } from '@/lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 export const InitialModal: React.FC = React.memo(() => {
-    const [isMounted, setIsMounted] = useState(false);
+    const { isMounted } = useHydrationHelper();
     const { refresh } = useRouter();
-
-    // This is done to remove hydration vulnerabilities
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
 
     const form = useForm({
         resolver: zodResolver(createServerFormSchema),

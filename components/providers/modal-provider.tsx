@@ -11,15 +11,12 @@ import { InvitePeopleModal } from '@/components/modals/invite-people-modal';
 import { LeaveSeverModal } from '@/components/modals/leave-server-modal';
 import { ManageMembersModal } from '@/components/modals/manage-members-modal';
 import { MessageFileModal } from '@/components/modals/message-file-modal';
-import { FC, memo, useEffect, useState } from 'react';
+import { useHydrationHelper } from '@/hooks/use-hydration-helper';
+import { FC, memo } from 'react';
 
 export const ModalProvider: FC = memo(() => {
-    const [isMounted, setIsMounted] = useState(false);
+    const { isMounted } = useHydrationHelper();
 
-    // This is done to remove hydration vulnerabilities
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
 
     return isMounted
         ? (
