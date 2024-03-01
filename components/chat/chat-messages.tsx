@@ -6,8 +6,8 @@ import { useChatSocket } from '@/hooks/use-chat-socket';
 import { MessageWithMemberWithProfile } from '@/types';
 import { IChatMessagesProps } from '@/types/component-props';
 import { format } from 'date-fns';
-import { Loader2, ServerCrash } from 'lucide-react';
-import { ElementRef, FC, Fragment, useMemo, useRef } from 'react';
+import { ArrowDown, Loader2, ServerCrash } from 'lucide-react';
+import { ElementRef, FC, Fragment, useCallback, useMemo, useRef } from 'react';
 import { ChatItem } from './chat-item';
 import { ChatWelcome } from './chat-welcome';
 
@@ -42,6 +42,13 @@ export const ChatMessages: FC<IChatMessagesProps> = (({
         shouldLoadMore: !isFetchingNextPage && !!hasNextPage,
         count: data?.pages?.[0]?.items?.length ?? 0
     });
+
+    const scrollToBottom = useCallback(() => {
+        //todo check if really required to go down
+        bottomRef?.current?.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }, []);
 
     if (status === 'pending') {
         return (
@@ -109,6 +116,12 @@ export const ChatMessages: FC<IChatMessagesProps> = (({
                         ))}
                     </Fragment>
                 ))}
+                <button
+                    className='text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 text-xs my-4 dark:hover:text-zinc-300 transition absolute top-16 right-8'
+                    onClick={scrollToBottom}
+                >
+                    <ArrowDown />
+                </button>
             </div>
             <div ref={bottomRef} />
         </div>
