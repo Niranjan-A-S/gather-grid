@@ -30,6 +30,8 @@ export const SocketProvider: FC<{ children: ReactNode }> = ({ children }) => {
             setIsConnected(false);
         });
 
+        setSocket(socketInstance);
+
         return () => {
             socketInstance.disconnect();
         };
