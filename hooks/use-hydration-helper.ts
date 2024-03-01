@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 export const useHydrationHelper = () => {
     const [isMounted, setIsMounted] = useState(false);
 
