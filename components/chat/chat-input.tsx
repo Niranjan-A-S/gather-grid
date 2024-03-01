@@ -5,7 +5,7 @@ import { chatInputFormSchema } from '@/lib/schema';
 import { IChatInputProps } from '@/types/component-props';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { Plus } from 'lucide-react';
+import { Plus, Send } from 'lucide-react';
 import qs from 'query-string';
 import { FC, useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
@@ -63,10 +63,15 @@ export const ChatInput: FC<IChatInputProps> = (({ apiUrl, name, query, type }) =
                                         placeholder={`Message ${type === 'conversation' ? name : '#' + name}`}
                                         {...field}
                                     />
-                                    <div className="absolute top-7 right-8">
+                                    <div className="absolute top-7 right-8 flex gap-3">
                                         <EmojiPicker
                                             onChange={(emoji: string) => field.onChange(`${field.value}${emoji}`)}
                                         />
+                                        <button>
+                                            <Send
+                                                className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+                                            />
+                                        </button>
                                     </div>
                                 </div>
                             </FormControl>
