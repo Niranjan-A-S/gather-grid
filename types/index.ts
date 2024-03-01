@@ -3,6 +3,7 @@ import { Server as NetServer, Socket } from 'net';
 import { NextApiResponse } from 'next';
 import { Server as SocketIOServer } from 'socket.io';
 import { IChatMessagesProps } from './component-props';
+import { RefObject } from 'react';
 
 export type NextApiResponseServerIO = NextApiResponse & {
     socket: Socket & {
@@ -76,3 +77,11 @@ export interface IChatItemProps {
     socketUrl: string;
     socketQuery: Record<string, string>;
 }
+
+export interface IChatScrollProps {
+    chatRef: RefObject<HTMLDivElement>;
+    bottomRef: RefObject<HTMLDivElement>;
+    shouldLoadMore: boolean;
+    loadMore(): void;
+    count: number;
+};

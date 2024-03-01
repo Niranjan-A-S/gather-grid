@@ -1,6 +1,7 @@
 'use client';
 
 import { useChatQuery } from '@/hooks/use-chat-query';
+import { useChatScroll } from '@/hooks/use-chat-scroll';
 import { useChatSocket } from '@/hooks/use-chat-socket';
 import { MessageWithMemberWithProfile } from '@/types';
 import { IChatMessagesProps } from '@/types/component-props';
@@ -28,12 +29,19 @@ export const ChatMessages: FC<IChatMessagesProps> = (({
     const addKey = useMemo(() => `chat:${chatId}:messages`, [chatId]);
     const updateKey = useMemo(() => `chat:${chatId}:messages:update`, [chatId]);
 
+    const chatRef = useRef<ElementRef<'div'>>(null);
+    const bottomRef = useRef<ElementRef<'div'>>(null);
+
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useChatQuery({ queryKey, apiUrl, paramKey, paramValue });
 
     useChatSocket({ addKey, queryKey, updateKey });
-
-    const chatRef = useRef<ElementRef<'div'>>(null);
-    const bottomRef = useRef<ElementRef<'div'>>(null);
+    useChatScroll({
+        chatRef,
+        bottomRef,
+        loadMore: fetchNextPage,
+        shouldLoadMore: !isFetchingNextPage && !!hasNextPage,
+        count: data?.pages?.[0]?.items?.length ?? 0
+    });
 
     if (status === 'pending') {
         return (
