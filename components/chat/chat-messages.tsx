@@ -1,6 +1,7 @@
 'use client';
 
 import { useChatQuery } from '@/hooks/use-chat-query';
+import { useChatSocket } from '@/hooks/use-chat-socket';
 import { MessageWithMemberWithProfile } from '@/types';
 import { IChatMessagesProps } from '@/types/component-props';
 import { format } from 'date-fns';
@@ -24,19 +25,12 @@ export const ChatMessages: FC<IChatMessagesProps> = (({
 }) => {
 
     const queryKey = useMemo(() => `chat:${chatId}`, [chatId]);
+    const addKey = useMemo(() => `chat:${chatId}:messages`, [chatId]);
+    const updateKey = useMemo(() => `chat:${chatId}:messages:update`, [chatId]);
 
-    const {
-        data,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-        status
-    } = useChatQuery({
-        queryKey,
-        apiUrl,
-        paramKey,
-        paramValue
-    });
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useChatQuery({ queryKey, apiUrl, paramKey, paramValue });
+
+    useChatSocket({ addKey, queryKey, updateKey });
 
     if (status === 'pending') {
         return (
