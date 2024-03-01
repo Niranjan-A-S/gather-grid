@@ -5,6 +5,7 @@ import {
     Form, FormControl, FormField, FormItem
 } from '@/components/ui/form';
 import { UserAvatar } from '@/components/user/user-avatar';
+import { useModalStore } from '@/hooks/use-modal-store';
 import { editMessageInputFormSchema } from '@/lib/schema';
 import { cn } from '@/lib/utils';
 import { IChatItemProps } from '@/types';
@@ -13,13 +14,13 @@ import { MemberRole } from '@prisma/client';
 import axios from 'axios';
 import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from 'lucide-react';
 import Image from 'next/image';
+import { useParams, useRouter } from 'next/navigation';
 import queryString from 'query-string';
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { useModalStore } from '@/hooks/use-modal-store';
 
 const roleIconMap = {
     'GUEST': null,
@@ -30,7 +31,8 @@ const roleIconMap = {
 export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, deleted, fileUrl, id, isUpdated, member, socketQuery, socketUrl, timestamp }) => {
 
     const { onOpen } = useModalStore();
-
+    const router = useRouter();
+    const params = useParams();
     const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
@@ -86,16 +88,26 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
         }
     }, [form, id, socketQuery, socketUrl]);
 
+    const onMemberClick = useCallback(() => {
+        if (member.id !== currentMember.id) {
+            router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
+        }
+    }, [currentMember.id, member.id, params?.serverId, router]);
+
     return (
         <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
             <div className="group flex gap-x-2 items-start w-full">
-                <div className="cursor-pointer hover:drop-shadow-md transition">
+                <div
+                    onClick={onMemberClick}
+                    className="cursor-pointer hover:drop-shadow-md transition">
                     <UserAvatar src={member.profile.imageUrl} />
                 </div>
                 <div className="flex flex-col w-full">
                     <div className="flex items-center gap-x-2">
                         <div className="flex items-center">
-                            <p className="font-semibold text-sm hover:underline cursor-pointer">
+                            <p
+                                onClick={onMemberClick}
+                                className="font-semibold text-sm hover:underline cursor-pointer">
                                 {member.profile.name}
                             </p>
                             <ActionToolTip label={member.role}>
