@@ -1,4 +1,6 @@
 import { ChatHeader } from '@/components/chat/chat-header';
+import { ChatInput } from '@/components/chat/chat-input';
+import { ChatMessages } from '@/components/chat/chat-messages';
 import { getCurrentProfile } from '@/lib';
 import { getOrCreateNewConversation } from '@/lib/conversation';
 import { db } from '@/lib/db';
@@ -37,6 +39,27 @@ export default async function ({ params: { memberId, serverId } }: IMemberIdPage
             serverId={serverId}
             type="conversation"
             imageUrl={imageUrl}
+        />
+        <ChatMessages
+            apiUrl="/api/direct-messages"
+            type="conversation"
+            socketUrl="/api/socket/direct-messages"
+            paramKey="conversationId"
+            paramValue={conversation.id}
+            member={currentMember}
+            name={name}
+            chatId={conversation.id}
+            socketQuery={{
+                conversationId: conversation.id
+            }}
+        />
+        <ChatInput
+            apiUrl='/api/socket/direct-messages'
+            name={name}
+            query={{
+                conversationId: conversation.id
+            }}
+            type="conversation"
         />
     </div>;
 }
