@@ -44,7 +44,7 @@ export default async function ({ params: { channelId, serverId } }: IChannelIdPa
                 type="channel"
                 chatId={channel.id}
                 apiUrl="/api/messages"
-                socketUrl="api/socket/messages"
+                socketUrl="/api/socket/messages"
                 socketQuery={{
                     serverId,
                     channelId
