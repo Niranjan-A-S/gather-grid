@@ -77,7 +77,7 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
     const handleSubmit = useCallback(async (values: z.infer<typeof editMessageInputFormSchema>) => {
         try {
             const url = queryString.stringifyUrl({
-                url: `/${socketUrl}/${id}`,
+                url: `${socketUrl}/${id}`,
                 query: socketQuery
             });
             await axios.patch(url, values);
@@ -219,7 +219,7 @@ export const ChatItem: FC<IChatItemProps> = memo(({ content, currentMember, dele
                         <ActionToolTip label="Delete">
                             <Trash
                                 onClick={() => onOpen('DELETE_MESSAGE', {
-                                    apiUrl: `/${socketUrl}/${id}`,
+                                    apiUrl: `${socketUrl}/${id}`,
                                     query: socketQuery
                                 })}
                                 className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
