@@ -1,18 +1,17 @@
-import { useCallback } from 'react';
-import { redirect } from 'next/navigation';
-import { Server } from '@prisma/client';
-import { UserButton } from '@clerk/nextjs';
-import { Separator } from '@/components/ui/separator';
 import { ModeToggle } from '@/components/mode-toggle';
 import { NavigationAction } from '@/components/navigation/navigation-action';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { NavigationItem } from '@/components/navigation/navigation-item';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
 import { getCurrentProfile } from '@/lib';
 import { db } from '@/lib/db';
+import { UserButton } from '@clerk/nextjs';
+import { Server } from '@prisma/client';
+import { redirect } from 'next/navigation';
 
 export const NavigationSidebar = async () => {
 
-    const renderNavItem = useCallback(({ id, imageUrl, name }: Server) => (
+    const renderNavItem = ({ id, imageUrl, name }: Server) => (
         <div className='mb-4' key={id}>
             <NavigationItem
                 id={id}
@@ -20,7 +19,7 @@ export const NavigationSidebar = async () => {
                 imageUrl={imageUrl}
             />
         </div>
-    ), []);
+    );
 
     const profile = await getCurrentProfile();
     if (!profile) return redirect('/');
