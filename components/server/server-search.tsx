@@ -29,8 +29,8 @@ export const ServerSearch: FC<IServerSearchProps> = memo(({
     }, []);
 
     const onClick = useCallback(({ id, type }: { id: string, type: 'member' | 'channel' }) => {
-        router.push(`/servers/${params.serverId}/${type === 'channel' ? 'channels' : 'members'}/${id}`);
-    }, [params.serverId, router]);
+        router.push(`/servers/${params?.serverId}/${type === 'channel' ? 'channels' : 'members'}/${id}`);
+    }, [params?.serverId, router]);
 
     return (
         <>
