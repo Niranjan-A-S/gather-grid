@@ -11,7 +11,7 @@ import './globals.css';
 const font = Open_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Discord Clone',
+  title: 'Discord by Niranjan A S',
   description: 'Developed by Niranjan A S'
 };
 
