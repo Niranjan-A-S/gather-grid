@@ -17,7 +17,7 @@ export const useChatQuery = ({ apiUrl, paramKey, paramValue, queryKey }: IChatQu
         }, { skipNull: true });
 
         const res = await fetch(url);
-        return res.json();
+        return res?.json();
     };
 
     const {
