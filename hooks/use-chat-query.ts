@@ -17,7 +17,7 @@ export const useChatQuery = ({ apiUrl, paramKey, paramValue, queryKey }: IChatQu
         }, { skipNull: true });
 
         const res = await fetch(url);
-        return res?.json();
+        return res.json();
     };
 
     const {
@@ -29,11 +29,10 @@ export const useChatQuery = ({ apiUrl, paramKey, paramValue, queryKey }: IChatQu
     } = useInfiniteQuery({
         queryKey: [queryKey],
         queryFn: fetchMessages,
-        getNextPageParam: (lastPage) => lastPage?.nextCursor,
-        refetchInterval: isConnected ? false : 1000, //this is polling incase of failure of websocket
+        getNextPageParam: (lastPage: any) => lastPage?.nextCursor,
+        refetchInterval: isConnected ? false : 1000 //this is polling incase of failure of websocket
         //todo check this once
-        initialPageParam: ''
-    });
+    } as any);
 
     return {
         data,
