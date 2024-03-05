@@ -33,7 +33,6 @@ export const ChatMessages: FC<IChatMessagesProps> = (({
     const bottomRef = useRef<ElementRef<'div'>>(null);
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useChatQuery({ queryKey, apiUrl, paramKey, paramValue });
-    console.log(data);
 
     useChatSocket({ addKey, queryKey, updateKey });
     useChatScroll({

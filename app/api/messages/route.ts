@@ -18,6 +18,7 @@ export const GET = async (req: Request) => {
         if (!channelId) return NextResponse.json('Channel ID is missing', { status: 400 });
 
         let messages: Message[] = [];
+        console.log({ channelId, cursor, profile });
 
         if (cursor) {
             messages = await db.message.findMany({
@@ -59,10 +60,14 @@ export const GET = async (req: Request) => {
             });
         }
 
+        console.log({ messages });
+
         let nextCursor = null;
         if (messages.length === MESSAGE_BATCH) {
             nextCursor = messages[MESSAGE_BATCH - 1].id;
         }
+
+        console.log({ nextCursor });
 
         return NextResponse.json({
             items: messages,
