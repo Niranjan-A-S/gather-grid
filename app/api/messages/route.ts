@@ -8,6 +8,7 @@ const MESSAGE_BATCH = 10;
 //todo understand this properly
 export const GET = async (req: Request) => {
     try {
+        console.log('Request here');
         const profile = await getCurrentProfile();
         if (!profile) return NextResponse.json('Unauthenticated', { status: 401 });
 
