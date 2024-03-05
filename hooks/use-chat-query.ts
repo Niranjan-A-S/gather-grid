@@ -3,7 +3,6 @@ import { IChatQueryOptions } from '@/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import qs from 'query-string';
 
-//todo understand this properly
 export const useChatQuery = ({ apiUrl, paramKey, paramValue, queryKey }: IChatQueryOptions) => {
     const { isConnected } = useSocket();
 
@@ -29,10 +28,9 @@ export const useChatQuery = ({ apiUrl, paramKey, paramValue, queryKey }: IChatQu
     } = useInfiniteQuery({
         queryKey: [queryKey],
         queryFn: fetchMessages,
-        getNextPageParam: (lastPage: any) => lastPage?.nextCursor,
+        getNextPageParam: (lastPage) => lastPage?.nextCursor,
         refetchInterval: isConnected ? false : 1000 //this is polling incase of failure of websocket
-        //todo check this once
-    } as any);
+    });
 
     return {
         data,
