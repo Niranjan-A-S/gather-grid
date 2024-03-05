@@ -11,7 +11,8 @@ const nextConfig = {
             'utf-8-validate': 'commonjs utf-8-validate'
         });
         return config;
-    }
+    },
+    swcMinify: false
 };
 
 export default nextConfig;
