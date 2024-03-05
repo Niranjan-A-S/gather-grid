@@ -33,7 +33,6 @@ export const ChatMessages: FC<IChatMessagesProps> = (({
     const bottomRef = useRef<ElementRef<'div'>>(null);
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useChatQuery({ queryKey, apiUrl, paramKey, paramValue });
-    console.log(data);
 
     useChatSocket({ addKey, queryKey, updateKey });
     useChatScroll({
@@ -41,7 +40,7 @@ export const ChatMessages: FC<IChatMessagesProps> = (({
         bottomRef,
         loadMore: fetchNextPage,
         shouldLoadMore: !isFetchingNextPage && !!hasNextPage,
-        count: (data?.pages?.[0] as any)?.items?.length ?? 0
+        count: data?.pages?.[0]?.items?.length ?? 0
     });
 
     const scrollToBottom = useCallback(() => {
@@ -98,7 +97,7 @@ export const ChatMessages: FC<IChatMessagesProps> = (({
                 </div>
             )}
             <div className="flex flex-col-reverse mt-auto">
-                {data?.pages?.map((group: any, i) => (
+                {data?.pages?.map((group, i) => (
                     <Fragment key={i}>
                         {group?.items?.map(({ content, createdAt, updatedAt, id, deleted, fileUrl, member: messageMember }: MessageWithMemberWithProfile) => (
                             <ChatItem
