@@ -7,10 +7,12 @@ import {
 } from '@/components/ui/popover';
 import { IEmojiPickerProps } from '@/types/component-props';
 import data from '@emoji-mart/data';
-import Picker from '@emoji-mart/react';
 import { Smile } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import dynamic from 'next/dynamic';
 import { FC, memo } from 'react';
+
+const Picker = dynamic(() => import('@emoji-mart/react'), { ssr: false });
 
 export const EmojiPicker: FC<IEmojiPickerProps> = memo(({ onChange }) => {
 
