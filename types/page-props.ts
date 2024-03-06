@@ -3,6 +3,9 @@ interface IServerIdPageProps extends Record<'params', IServerIdPage> {
 interface IChannelIdPageProps extends Record<'params', IChannelIdPage> {
 };
 interface IMemberIdPageProps extends Record<'params', IMemberIdPage> {
+    searchParams: {
+        video?: boolean
+    }
 };
 
 interface IServerIdPage {

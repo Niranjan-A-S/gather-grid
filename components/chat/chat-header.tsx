@@ -2,8 +2,9 @@ import { IChatHeaderProps } from '@/types/component-props';
 import { Hash } from 'lucide-react';
 import { FC, memo } from 'react';
 import { MobileToggle } from '../mobile-toggle';
-import { UserAvatar } from '../user/user-avatar';
 import { SocketIndicator } from '../socket-indicator';
+import { UserAvatar } from '../user/user-avatar';
+import { ChatVideoButton } from './chat-video-button';
 
 export const ChatHeader: FC<IChatHeaderProps> = memo(({ type, name, serverId, imageUrl }) => (
     <div
@@ -25,6 +26,9 @@ export const ChatHeader: FC<IChatHeaderProps> = memo(({ type, name, serverId, im
             {name}
         </p>
         <div className="ml-auto flex items-center" >
+            {type === 'conversation' && (
+                <ChatVideoButton />
+            )}
             <SocketIndicator />
         </div>
     </div>
