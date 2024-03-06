@@ -10,12 +10,12 @@ import { LiveKitRoom, VideoConference } from '@livekit/components-react';
 import '@livekit/components-styles';
 
 export const MediaRoom: FC<IMediaRoomProps> = memo(({ audio, chatId, video }) => {
-    const { user } = useUser();
+    const _user = useUser();
     const [token, setToken] = useState('');
 
     useEffect(() => {
-
-        if (!user?.firstName || user?.lastName) return;
+        const { user } = _user;
+        if (!user?.firstName || !user?.lastName) return;
 
         const name = `${user?.firstName} ${user?.lastName}`;
 
@@ -28,15 +28,14 @@ export const MediaRoom: FC<IMediaRoomProps> = memo(({ audio, chatId, video }) =>
                         room: chatId
                     }
                 });
-                const data: any = await axios(url);
+                const { data }: any = await axios(url);
                 setToken(data?.token);
-
             } catch (error) {
                 console.log(error);
             }
         })();
 
-    }, [chatId, user?.firstName, user?.lastName]);
+    }, [chatId, _user]);
 
     if (token === '') return (
         <div className="flex flex-col flex-1 justify-center items-center">
