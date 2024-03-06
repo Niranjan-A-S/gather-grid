@@ -118,3 +118,9 @@ export interface IChatMessagesProps {
 }
 
 export interface IChatWelcomeProps extends Pick<IChatMessagesProps, 'type' | 'name'> { };
+
+export interface IMediaRoomProps {
+    audio: boolean;
+    video: boolean;
+    chatId: string;
+}
