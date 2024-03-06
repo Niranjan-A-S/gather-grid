@@ -1,3 +1,5 @@
+'use client';
+
 import { IMediaRoomProps } from '@/types/component-props';
 import { useUser } from '@clerk/nextjs';
 import axios from 'axios';
