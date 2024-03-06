@@ -5,3 +5,4 @@
  - Fix the issue of suggestions coming up in the input box
  - Remove the complete warnings and errors from the browser logs
  - Icons colliding in the flyout 
+ - Use axios wherever fetch is used
