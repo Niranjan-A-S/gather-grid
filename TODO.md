@@ -6,3 +6,4 @@
  - Remove the complete warnings and errors from the browser logs
  - Icons colliding in the flyout 
  - Use axios wherever fetch is used
+ - Disable the server creation button when promise is pending
