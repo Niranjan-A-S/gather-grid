@@ -6,6 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { useHydrationHelper } from '@/hooks/use-hydration-helper';
 import { createServerFormSchema } from '@/lib/schema';
+import { SignOutButton } from '@clerk/nextjs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -97,6 +98,11 @@ export const InitialModal: React.FC = React.memo(() => {
                                 />
                             </div>
                             <DialogFooter className="bg-gray-100 px-6 py-4">
+                                <SignOutButton >
+                                    <div className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium px-2 ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 bg-red-500 cursor-pointer">
+                                        Sign out
+                                    </div>
+                                </SignOutButton>
                                 <Button disabled={isLoading} variant="primary">Create</Button>
                             </DialogFooter>
                         </form>
