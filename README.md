@@ -28,9 +28,3 @@ This project is a communication platform built using Next.js, PostgreSQL, and a 
 - **State Management**: Zustand for state management.
 - **Validation**: Zod for schema validation.
 
-## Getting Started
-
-1. **Clone the Repository**: Start by cloning this repository to your local machine.
-2. **Install Dependencies**: Run `npm install` or `yarn install` to install all necessary dependencies.
-3. **Setup PostgreSQL**: Ensure you have PostgreSQL running locally or set up a remote database. Update the `.env` file with your database connection details.
-4. **Run the Development Server**: Use `npm run dev` or `yarn dev` to start the development server.
