@@ -33,7 +33,7 @@ export default async function ({ params: { memberId, serverId }, searchParams }:
     const { profile: { name, imageUrl } } = memberOne.profileId === profile.id ? memberTwo : memberOne;
 
     return <div
-        className="bg-white dark:bg-black flex flex-col h-full"
+        className="bg-white dark:bg-[#313338] flex flex-col h-full"
     >
         <ChatHeader
             name={name}
