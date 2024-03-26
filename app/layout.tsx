@@ -11,7 +11,7 @@ import './globals.css';
 const font = Open_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Discord by Niranjan A S',
+  title: 'GatherGrid',
   description: 'Developed by Niranjan A S'
 };
 
@@ -28,7 +28,7 @@ export default function RootLayout({
             attribute="class"
             defaultTheme="dark"
             enableSystem={false}
-            storageKey="discord-theme"
+            storageKey="gather-grid-theme"
           >
             <SocketProvider>
               <QueryProvider>
