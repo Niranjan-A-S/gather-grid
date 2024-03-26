@@ -1,6 +1,6 @@
-# Discord Clone Project
+# GatherGrid
 
-This project is a Discord clone built using Next.js, PostgreSQL, and a variety of other technologies to create a real-time messaging application. The stack includes Next.js for the frontend, PostgreSQL for the database, and additional libraries for various functionalities.
+This project is a communication platform built using Next.js, PostgreSQL, and a variety of other technologies to create a real-time messaging application. The stack includes Next.js for the frontend, PostgreSQL for the database, and additional libraries for various functionalities.
 
 ## Features
 
