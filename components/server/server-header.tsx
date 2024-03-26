@@ -28,7 +28,7 @@ export const ServerHeader: FC<IServerHeaderProps> = ({ server, role }) => {
                 </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-                className="w-56 text-xs font-medium text-black dark:text-neutral-400 space-y-[2px]"
+                className="w-56 text-xs font-medium text-black dark:text-white space-y-[2px] bg-white dark:bg-black"
             >
                 {
                     isModerator
