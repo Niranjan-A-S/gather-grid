@@ -63,7 +63,7 @@ export const ServerSidebar: FC<IServerSidebarProps> = memo(async ({ serverId }) 
     const role = server?.members.find(({ profileId }) => profileId === profile.id)?.role;
 
     return (
-        <div className='flex flex-col h-full text-primary w-full dark:bg-black bg-white border-r-[1px] border-zinc-300 dark:border-zinc-700'>
+        <div className='flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]'>
             <ServerHeader
                 server={server}
                 role={role}
