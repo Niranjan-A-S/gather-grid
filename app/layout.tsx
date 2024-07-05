@@ -12,7 +12,7 @@ const font = Open_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'GatherGrid',
-  description: 'Developed by Niranjan A S'
+  description: 'A Communication Platform'
 };
 
 export default function RootLayout({
