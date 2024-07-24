@@ -6,3 +6,10 @@
  - Icons colliding in the flyout 
  - Use axios wherever fetch is used
  - Disable the server creation button when promise is pending
+
+----------------------------------------------
+- change the background color of auth screen
+- change the background color of invite screen
+- add not found page
+- add error page
+- add hook for auth check
